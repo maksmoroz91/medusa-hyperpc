@@ -26,7 +26,10 @@
     "@medusajs/cache-redis": "^2.11.3",
     "@medusajs/cli": "2.11.3",
     "@medusajs/framework": "2.11.3",
-    "@medusajs/medusa": "2.11.3"
+    "@medusajs/medusa": "2.11.3",
+    "axios": "^1.13.2",
+    "ioredis": "^5.8.2",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.11.3",
