@@ -1,62 +1,93 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-<h1 align="center">
-  Medusa
-</h1>
+# .ENV
 
-<h4 align="center">
-  <a href="https://docs.medusajs.com">Documentation</a> |
-  <a href="https://www.medusajs.com">Website</a>
-</h4>
+Добавить в  `.env` переменные:
 
-<p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+```env
+EXCHANGE_RATE_API_URL=https://v6.exchangerate-api.com/v6
+EXCHANGE_RATE_API_KEY=
+CURRENCY_CACHE_TTL=3600
+```
 
-## Compatibility
 
-This starter is compatible with versions >= 2 of `@medusajs/medusa`. 
+## Примеры использования
 
-## Getting Started
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to set up a server.
+### ✅**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=USD`
 
-Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
+**Response:**
+```json
+{
+    "success": true,
+    "data": {
+        "amount": 10,
+        "from": "EUR",
+        "to": "USD",
+        "rate": 1.1531,
+        "result": 11.531,
+        "timestamp": "2025-11-21T18:25:05.499Z"
+    }
+}
+```
 
-## What is Medusa
+### ✅**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=USD`
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "amount": 10,
+    "from": "EUR",
+    "to": "USD",
+    "rate": 1.1531,
+    "result": 11.531,
+    "timestamp": "2025-11-21T18:25:05.499Z"
+  }
+}
+```
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/introduction/architecture) and [commerce modules](https://docs.medusajs.com/learn/fundamentals/modules/commerce-modules) in the Docs.
+### ❌**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=AAA`
 
-## Community & Contributions
+**Response:**
+```json
+{
+  "success": false,
+  "error": "Invalid currency code: EUR or AAA"
+}
+```
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+### ❌**Request:** `GET /store/currency/convert?amount=0&from=EUR&to=USD`
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+**Response:**
+```json
+{
+  "success": false,
+  "error": "Validation error",
+  "details": [
+    "Amount must be a positive number"
+  ]
+}
+```
 
-## Other channels
+### ❌**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=USDa`
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+**Response:**
+```json
+{
+  "success": false,
+  "error": "Validation error",
+  "details": [
+    "To currency must be a valid 3-letter currency code"
+  ]
+}
+```
+
+### ❌ Импровизированная ошибка при запросе к API курсов
+
+**Response:**
+```json
+{
+  "success": false,
+  "error": "Failed to fetch exchange rates for EUR and no cached data available"
+}
+```
