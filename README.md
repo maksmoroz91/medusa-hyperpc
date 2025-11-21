@@ -8,11 +8,6 @@ EXCHANGE_RATE_API_KEY=
 CURRENCY_CACHE_TTL=3600
 ```
 
-**И установить зависимости** 
-```bash
-yarn add axios ioredis zod
-```
-
 
 ## Примеры использования
 
