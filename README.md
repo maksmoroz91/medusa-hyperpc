@@ -1,11 +1,16 @@
 # .ENV
 
-Добавить в  `.env` переменные:
+**Добавить в  `.env` переменные:**
 
 ```env
 EXCHANGE_RATE_API_URL=https://v6.exchangerate-api.com/v6
 EXCHANGE_RATE_API_KEY=
 CURRENCY_CACHE_TTL=3600
+```
+
+**И установить зависимости** 
+```bash
+yarn add axios ioredis zod
 ```
 
 
