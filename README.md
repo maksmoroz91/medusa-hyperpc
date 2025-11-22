@@ -29,23 +29,6 @@ CURRENCY_CACHE_TTL=3600
 }
 ```
 
-### ✅**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=USD`
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "amount": 10,
-    "from": "EUR",
-    "to": "USD",
-    "rate": 1.1531,
-    "result": 11.531,
-    "timestamp": "2025-11-21T18:25:05.499Z"
-  }
-}
-```
-
 ### ❌**Request:** `GET /store/currency/convert?amount=10&from=EUR&to=AAA`
 
 **Response:**
